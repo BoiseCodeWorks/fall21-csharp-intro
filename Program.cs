@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using RollerDrome;
 
@@ -9,6 +10,41 @@ namespace WelcomeCSharp
     static void Main(string[] args)
     {
 
+      // THIS IS VERY VERY VERY FAKE BAD AUTH System
+      var userDatabase = new Dictionary<string, string>();
+
+      userDatabase.Add("jimmyTester@test.com", "Testing123!");
+      userDatabase.Add("johnnyTester@test.com", "shhhDontTell");
+
+      Login(userDatabase);
+
+    }
+
+    private static void Login(Dictionary<string, string> userDatabase)
+    {
+      Console.WriteLine("Please login");
+      var username = Console.ReadLine();
+      if (!userDatabase.ContainsKey(username))
+      {
+        System.Console.WriteLine("NOPE INCORRECT try again");
+        Login(userDatabase);
+        return;
+      }
+      var userPassword = userDatabase[username];
+
+      System.Console.WriteLine("Please enter your password");
+      var password = Console.ReadLine();
+      if (userPassword != password)
+      {
+        System.Console.WriteLine("NOPE INCORRECT try again");
+        Login(userDatabase);
+        return;
+      }
+      System.Console.WriteLine("Welcome User");
+    }
+
+    private static void DiceRoller()
+    {
       var greenAndGoldD20 = new D20();
       var blackAndGoldD20 = new D20();
       var blackAndGoldD6 = new D6();
@@ -61,9 +97,7 @@ You rolled a {blackAndGoldD20.Roll()}
       blackAndGoldD20.PrintHistory();
       Beep();
       System.Console.WriteLine("👋 Okay bye then");
-
     }
-
 
     public static void Beep()
     {
